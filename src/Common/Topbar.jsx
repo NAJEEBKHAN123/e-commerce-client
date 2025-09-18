@@ -2,7 +2,7 @@ import React from "react";
 
 function Topbar() {
   return (
-    <div className="flex justify-between items-center px-6 py-5 bg-gradient-to-r from-red-600 to-red-700 text-white  ">
+    <div className="flex justify-between items-center px-6 py-4 bg-gradient-to-r from-red-600 to-red-700 text-white  ">
       <div className="font-bold text-2xl">
         <h1 >𝑭𝒐𝒐𝒅𝒊𝒆𝑩𝒖𝒛𝒛</h1>
       </div>

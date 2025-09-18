@@ -1,73 +1,92 @@
 import React, { useRef } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react"; // or any icons
+import { ChevronLeft, ChevronRight, Search } from "lucide-react";
 
-const jollibeeMenu = [
-  "Menu",
-  "Stores",
-  "Jollibee Menu",
-  "Family Meals",
-  "Super Meals",
-  "Jolly Meal Savers",
-  "Chickenjoy",
-  "Burgers",
-  "Jolly Spaghetti & Palabok",
-  "Burger Steak",
-  "Sandwiches & Savory Pies",
-  "Chicken Nuggets",
-  "Chicken Fillet",
-  "Fries & Sides",
-  "Desserts & Sweet Pies",
-  "Beverages",
-  "Jollibee Kids Values Meal",
-  "Meals Under 750 kcal"
+function Navbar() {
+  const FoodMenu = [
+  "Zinger Burger",
+  "Spicy Chicken Wings",
+  "Crispy Chicken Broast",
+  "Chicken Strips",
+  "Peri Peri Fries",
+  "Spicy Wraps",
+  "Loaded Nachos",
+  "Grilled Chicken Sandwich",
+  "Fiery Pizza Fries",
+  "Hot & Spicy Nuggets",
 ];
 
-function MenuList() {
+
   const scrollRef = useRef(null);
 
-  const scroll = (direction) => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollBy({
-        left: direction === "left" ? -200 : 200,
-        behavior: "smooth",
-      });
-    }
+  const scrollLeft = () => {
+    scrollRef.current.scrollBy({ left: -200, behavior: "smooth" });
+  };
+
+  const scrollRight = () => {
+    scrollRef.current.scrollBy({ left: 200, behavior: "smooth" });
   };
 
   return (
-    <div className="relative flex items-center w-full">
-      {/* Left button */}
-      <button
-        onClick={() => scroll("left")}
-        className="absolute left-0 z-10 bg-white shadow rounded-full p-2"
-      >
-        <ChevronLeft size={24} />
-      </button>
-
-      {/* Scrollable container */}
-      <div
-        ref={scrollRef}
-        className="flex overflow-x-auto no-scrollbar space-x-4 px-10"
-      >
-        {jollibeeMenu.map((item, index) => (
-          <div
-            key={index}
-            className="flex-shrink-0 px-4 py-2 bg-red-500 text-white rounded-lg cursor-pointer"
-          >
-            {item}
-          </div>
-        ))}
+    <div className="relative flex items-center border-b border-gray-300 py-4 bg-white">
+      {/* Search input with icon */}
+      <div className="flex items-center ml-4 mr-2 relative">
+        <Search size={18} className="absolute left-3 text-gray-400" />
+        <input
+          type="text"
+          placeholder="Search Menu"
+          className="pl-10 pr-4 py-2 border border-gray-300 rounded-full outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent w-full"
+        />
       </div>
 
-      {/* Right button */}
-      <button
-        onClick={() => scroll("right")}
-        className="absolute right-0 z-10 bg-white shadow rounded-full p-2"
-      >
-        <ChevronRight size={24} />
-      </button>
+      {/* Scroll buttons container */}
+      <div className="flex items-center">
+        {/* Prev Button */}
+        <button
+          onClick={scrollLeft}
+          className="bg-white shadow-md rounded-full p-2 mr-2 text-gray-700 hover:text-red-600 transition-colors"
+        >
+          <ChevronLeft size={20} />
+        </button>
+
+        {/* Scrollable menu */}
+        <div
+          ref={scrollRef}
+          className="flex overflow-x-auto gap-4 mx-2 hide-scrollbar"
+          style={{ maxWidth: 'calc(100vw - 320px)' }}
+        >
+          {FoodMenu.map((item, index) => (
+            <div
+              key={index}
+              className="flex-shrink-0 px-4 py-2 bg-gray-100 rounded-full text-sm font-semibold text-gray-700 hover:bg-red-50 hover:text-red-600 cursor-pointer transition-colors"
+            >
+              {item}
+            </div>
+          ))}
+        </div>
+
+        {/* Next Button */}
+        <button
+          onClick={scrollRight}
+          className="bg-white shadow-md rounded-full p-2 ml-2 text-gray-700 hover:text-red-600 transition-colors"
+        >
+          <ChevronRight size={20} />
+        </button>
+      </div>
+
+      {/* Style for hiding scrollbar */}
+      <style>
+        {`
+          .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+          }
+          .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+          }
+        `}
+      </style>
     </div>
   );
 }
 
-export default MenuList;
+export default Navbar;
