@@ -6,9 +6,9 @@ function About() {
     <div className="flex w-full gap-12 px-4 py-10 mt-20">
       {/* left side  */}
       <div className="">
-        <img src={img} alt="" className="rounded-lg"/>
+        <img src={img} alt="" className="rounded-lg h-[400px] w-[700px] object-cover"/>
       </div>
-      <div className="pt-10 w-2/2 text-xl">
+      <div className=" w-2/2  text-lg">
         <h1 className="text-3xl font-semibold py-4">𝑭𝒐𝒐𝒅𝒊𝒆𝑩𝒖𝒛𝒛 | Fast Food Near You in Pakistan</h1>
         <p className="py-4 ">
           Welcome to FoodieBuzz, Pakistan’s favorite spot for mouth-watering

@@ -1,34 +1,29 @@
 import React, { useRef } from "react";
 import { ChevronLeft, ChevronRight, Search } from "lucide-react";
+import { NavLink } from "react-router-dom";
+import NavData from "../constants/NavMenu";
 
 function Navbar() {
-  const FoodMenu = [
-  "Zinger Burger",
-  "Spicy Chicken Wings",
-  "Crispy Chicken Broast",
-  "Chicken Strips",
-  "Peri Peri Fries",
-  "Spicy Wraps",
-  "Loaded Nachos",
-  "Grilled Chicken Sandwich",
-  "Fiery Pizza Fries",
-  "Hot & Spicy Nuggets",
-];
-
-
   const scrollRef = useRef(null);
 
+  // Define all categories
+  const categories = Object.keys(NavData || {});
+
   const scrollLeft = () => {
-    scrollRef.current.scrollBy({ left: -200, behavior: "smooth" });
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: -200, behavior: "smooth" });
+    }
   };
 
   const scrollRight = () => {
-    scrollRef.current.scrollBy({ left: 200, behavior: "smooth" });
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: 200, behavior: "smooth" });
+    }
   };
 
   return (
     <div className="relative flex items-center border-b border-gray-300 py-4 bg-white">
-      {/* Search input with icon */}
+      {/* Search input */}
       <div className="flex items-center ml-4 mr-2 relative">
         <Search size={18} className="absolute left-3 text-gray-400" />
         <input
@@ -38,42 +33,45 @@ function Navbar() {
         />
       </div>
 
-      {/* Scroll buttons container */}
+      {/* Category navigation */}
       <div className="flex items-center">
-        {/* Prev Button */}
-        <button
-          onClick={scrollLeft}
+        <button 
+          onClick={scrollLeft} 
           className="bg-white shadow-md rounded-full p-2 mr-2 text-gray-700 hover:text-red-600 transition-colors"
         >
           <ChevronLeft size={20} />
         </button>
 
-        {/* Scrollable menu */}
-        <div
-          ref={scrollRef}
-          className="flex overflow-x-auto gap-4 mx-2 hide-scrollbar"
+        <div 
+          ref={scrollRef} 
+          className="flex overflow-x-auto gap-4 mx-2 hide-scrollbar" 
           style={{ maxWidth: 'calc(100vw - 320px)' }}
         >
-          {FoodMenu.map((item, index) => (
-            <div
-              key={index}
-              className="flex-shrink-0 px-4 py-2 bg-gray-100 rounded-full text-sm font-semibold text-gray-700 hover:bg-red-50 hover:text-red-600 cursor-pointer transition-colors"
+          {categories.map((cat) => (
+            <NavLink
+              key={cat}
+              to={`/menu/${cat}`}
+              className={({ isActive }) => 
+                `flex-shrink-0 px-4 py-2 rounded-full text-sm font-semibold cursor-pointer transition-colors ${
+                  isActive
+                    ? "bg-red-600 text-white"
+                    : "bg-gray-100 text-gray-700 hover:bg-red-50 hover:text-red-600"
+                }`
+              }
+              end 
             >
-              {item}
-            </div>
+              {cat}
+            </NavLink>
           ))}
         </div>
 
-        {/* Next Button */}
-        <button
-          onClick={scrollRight}
+        <button 
+          onClick={scrollRight} 
           className="bg-white shadow-md rounded-full p-2 ml-2 text-gray-700 hover:text-red-600 transition-colors"
         >
           <ChevronRight size={20} />
         </button>
       </div>
-
-      {/* Style for hiding scrollbar */}
       <style>
         {`
           .hide-scrollbar {
